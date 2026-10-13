@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnPuzzled | Puzzle Game</title>
+
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="style.css"> <!-- CSS -->
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">UnPuzzled</div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="game.html">Puzzle Game</a></li>
+                <li><a href="museum.html">Museum</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="page-banner">
+            <h1>Puzzle Game</h1>
+
+            <p>
+                Restore famous masterpieces piece by piece.
+            </p>
+        </section>
+
+        <section class="carousel-section">
+
+            <h2>Featured Paintings</h2>
+
+            <div class="carousel-container">
+
+                <button class="carousel-btn">❮</button>
+
+                <div class="carousel-image-container">
+                    <img src="images/Mona_Lisa.png"
+                         alt="Painting"
+                         id="carousel-image">
+                </div>
+
+                <button class="carousel-btn">❯</button>
+
+            </div>
+
+            <div class="carousel-controls">
+                <button>Pause</button>
+                <button>Resume</button>
+            </div>
+
+        </section>
+
+        <section class="game-settings">
+
+            <h2>Puzzle Settings</h2>
+
+            <form id="puzzle-form">
+
+                <label for="difficulty">
+                    Difficulty (2-6)
+                </label>
+
+                <input
+                    type="number"
+                    id="difficulty"
+                    min="2"
+                    max="6">
+
+                <div class="checkbox-group">
+
+                    <label>
+                        <input type="checkbox" id="blur">
+                        Blur
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="greyscale">
+                        Greyscale
+                    </label>
+
+                </div>
+
+                <button type="submit">
+                    Generate Puzzle
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="puzzle-section">
+
+            <h2>Current Puzzle</h2>
+
+            <div id="puzzle-board">
+
+                <!-- Puzzle pieces generated with JS -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <aside>
+
+        <h2>Game Information</h2>
+
+        <p id="current-time">
+            Time loading...
+        </p>
+
+        <p id="weather">
+            Weather loading...
+        </p>
+
+        <p>
+            Location: Calgary, Alberta
+        </p>
+
+    </aside>
+
+    <footer>
+
+        <div class="footer-links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+        </div>
+
+        <p>
+            © <span id="year"></span>
+            Sebastian Garcia Velez | UnPuzzled
+        </p>
+
+    </footer>
+
+</body>
+</html>
