@@ -69,7 +69,13 @@ function previousImage() {
     showImage();
 }
 
-//event listener to buttons for next or previus functions
+
+
+//Creating an interval to continue to next image automatically
+let carouselInterval =
+    setInterval(nextImage, 4000);
+
+    //event listener to buttons for next or previus functions
 nextBtn.addEventListener(
     "click",
     nextImage
@@ -79,10 +85,6 @@ prevBtn.addEventListener(
     "click",
     previousImage
 );
-
-//Creating an interval to continue to next image automatically
-let carouselInterval =
-    setInterval(nextImage, 4000);
 
 pauseBtn.addEventListener("click", () => {
     //pause button clear the interval
