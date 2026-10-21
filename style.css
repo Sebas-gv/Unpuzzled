@@ -453,3 +453,118 @@ footer {
     color: crimson;
     font-weight: bold;
 }
+
+/*    --------------------------------------  */
+
+#game-status {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.puzzle-section {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.puzzle-section h2 {
+    margin-bottom: 1rem;
+}
+
+#puzzle-board {
+
+    width: 700px;
+    height: 700px;
+
+    margin: 0 auto;
+
+    border: 4px solid #d4af37;
+
+    background-color: white;
+
+    display: grid;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.puzzle-piece {
+
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    cursor: pointer;
+
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+.puzzle-piece:focus {
+
+    outline: 4px solid #d4af37;
+    outline-offset: -4px;
+}
+.puzzle-piece:hover {
+
+    filter: brightness(1.1);
+}
+
+#victory-message {
+
+    margin-top: 2rem;
+
+    padding: 1rem;
+
+    background-color: #2e8b57;
+
+    color: white;
+
+    font-size: 1.3rem;
+
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    #puzzle-board {
+
+        width: 90vw;
+        height: 90vw;
+    }
+}
+
+.puzzle-piece {
+
+    transition:
+        transform 0.35s ease,
+        filter 0.25s ease;
+}
+
+@keyframes celebrate {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.puzzle-complete {
+
+    animation: celebrate 1s ease;
+}
