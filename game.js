@@ -16,8 +16,7 @@ const paintings = [
 
 //CARUSEL
 //Getting elements needed for the carousel
-const carouselImage =
-    document.getElementById("carouselImage");
+const carouselImage = document.getElementById("carouselImage");
     console.log(carouselImage);
 
 const prevBtn =
@@ -40,8 +39,7 @@ let currentImageIndex = 0; //index of the displayed image
 
 function showImage() { 
     //showing first image
-    carouselImage.src =
-        paintings[currentImageIndex];
+    carouselImage.src = paintings[currentImageIndex];
 }
 
 function nextImage() {
@@ -52,7 +50,7 @@ function nextImage() {
 
         currentImageIndex = 0;
     }
-    //incrising index fot next image
+    //increasing index fot next image
     showImage();
 }
 
@@ -109,7 +107,10 @@ const victoryMessage = document.getElementById("victory-message");
 
 let currentPieces = [];
 let selectedPainting = "";
-let selectedPiece = null;
+let currentDifficulty = 0;
+let boardState = [];
+const blurCheckbox = document.getElementById("blur");
+const greyscaleCheckbox =  document.getElementById("greyscale");
 
 puzzleForm.addEventListener("submit", function (event) {
 
@@ -133,30 +134,57 @@ puzzleForm.addEventListener("submit", function (event) {
 
 function generatePuzzle(difficulty) {
 
+    currentDifficulty = difficulty;
+
     puzzleBoard.innerHTML = "";
 
     victoryMessage.classList.add("hidden");
 
     selectedPainting =
         paintings[
-            Math.floor(Math.random() * paintings.length)
+            Math.floor(
+                Math.random() * paintings.length
+            )
         ];
 
     const totalPieces =
         difficulty * difficulty;
 
+    // Create grid columns
+    let columns = "";
+
+    for (let i = 0; i < difficulty; i++) {
+
+        columns += "1fr";
+
+        if (i < difficulty - 1) {
+            columns += " 15px ";
+        }
+    }
+
     puzzleBoard.style.gridTemplateColumns =
-        `repeat(${difficulty}, 1fr)`;
+        columns;
+
+    // Create grid rows
+    let rows = "";
+
+    for (let i = 0; i < difficulty; i++) {
+
+        rows += "1fr";
+
+        if (i < difficulty - 1) {
+            rows += " 15px ";
+        }
+    }
 
     puzzleBoard.style.gridTemplateRows =
-        `repeat(${difficulty}, 1fr)`;
+        rows;
 
     currentPieces = [];
 
     for (let i = 0; i < totalPieces; i++) {
 
         currentPieces.push({
-            currentPosition: i,
             correctPosition: i
         });
 
@@ -164,31 +192,212 @@ function generatePuzzle(difficulty) {
 
     shuffleArray(currentPieces);
 
-    currentPieces.forEach((pieceData, position) => {
+    boardState = [];
 
-        const piece = createPuzzlePiece(
-            difficulty,
-            position,
-            pieceData.correctPosition
-        );
+    currentPieces.forEach(
+        (pieceData, position) => {
 
-        puzzleBoard.appendChild(piece);
+            const piece =
+                createPuzzlePiece(
+                    difficulty,
+                    position,
+                    pieceData.correctPosition
+                );
 
-    });
+            boardState.push(piece);
 
-    statusText.textContent =
-        `Puzzle generated (${difficulty} x ${difficulty})`;
+        }
+    );
 
+    renderBoard();
+    applyVisualEffects();
+    statusText.textContent = `Puzzle generated (${difficulty} x ${difficulty})`;
 }
 
-function createPuzzlePiece(
-    difficulty,
-    currentPosition,
-    correctPosition
+function applyVisualEffects() {
+
+    let filters = [];
+
+    if (blurCheckbox.checked) {
+
+        filters.push("blur(3px)");
+
+    }
+
+    if (greyscaleCheckbox.checked) {
+
+        filters.push("grayscale(100%)");
+
+    }
+
+    const filterString =
+        filters.join(" ");
+
+    document
+        .querySelectorAll(".puzzle-piece")
+        .forEach(piece => {
+
+            piece.style.filter = "none";
+
+        });
+}
+
+function renderBoard() {
+
+    puzzleBoard.innerHTML = "";
+
+    for (
+        let row = 0;
+        row < currentDifficulty;
+        row++
+    ) {
+
+        for (
+            let col = 0;
+            col < currentDifficulty;
+            col++
+        ) {
+
+            const index =
+                row * currentDifficulty + col;
+
+            puzzleBoard.appendChild(
+                boardState[index]
+            );
+
+            if (
+                col <
+                currentDifficulty - 1
+            ) {
+
+                const button =
+                    createHorizontalSwapButton(
+                        index
+                    );
+
+                puzzleBoard.appendChild(
+                    button
+                );
+            }
+        }
+
+        if (
+            row <
+            currentDifficulty - 1
+        ) {
+
+            for (
+                let col = 0;
+                col < currentDifficulty;
+                col++
+            ) {
+
+                const index =
+                    row * currentDifficulty + col;
+
+                const button =
+                    createVerticalSwapButton(
+                        index
+                    );
+
+                puzzleBoard.appendChild(
+                    button
+                );
+
+                if (
+                    col <
+                    currentDifficulty - 1
+                ) {
+
+                    const spacer =
+                        document.createElement(
+                            "div"
+                        );
+
+                    spacer.classList.add(
+                        "empty-cell"
+                    );
+
+                    puzzleBoard.appendChild(
+                        spacer
+                    );
+                }
+            }
+        }
+    }
+}
+
+function createHorizontalSwapButton( index) {
+
+    const button =
+        document.createElement("button");
+
+    button.textContent = "⇄";
+
+    button.classList.add(
+        "swap-button",
+        "horizontal-swap"
+    );
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            swapBoardPositions(
+                index,
+                index + 1
+            );
+
+        }
+    );
+
+    return button;
+}
+
+function createVerticalSwapButton(
+    index
 ) {
 
-    const piece =
-        document.createElement("div");
+    const button =
+        document.createElement("button");
+
+    button.textContent = "⇅";
+
+    button.classList.add( "swap-button", "vertical-swap");
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            swapBoardPositions(
+                index,
+                index + currentDifficulty
+            );
+
+        }
+    );
+
+    return button;
+}
+
+function swapBoardPositions( firstIndex, secondIndex) {
+    const temp =
+        boardState[firstIndex];
+
+    boardState[firstIndex] =
+        boardState[secondIndex];
+
+    boardState[secondIndex] =
+        temp;
+
+    renderBoard();
+
+    checkWin();
+}
+
+function createPuzzlePiece(difficulty, currentPosition, correctPosition) {
+
+    const piece = document.createElement("div");
 
     piece.classList.add("puzzle-piece");
 
@@ -226,68 +435,28 @@ function createPuzzlePiece(
     piece.dataset.correctPosition =
         correctPosition;
 
-    piece.dataset.currentPosition =
-        currentPosition;
-
     piece.dataset.rotation =
         randomRotation;
 
     piece.style.transform =
         `rotate(${randomRotation}deg)`;
 
-    piece.addEventListener(
-        "click",
-        () => {
 
-            if (selectedPiece === null) {
-
-                selectedPiece = piece;
-
-                piece.style.outline =
-                    "4px solid red";
-
-            }
-            else {
-
-                if (selectedPiece !== piece) {
-
-                    swapPieces(
-                        selectedPiece,
-                        piece
-                    );
-
-                }
-
-                selectedPiece.style.outline =
-                    "none";
-
-                selectedPiece = null;
-            }
-
+    //Listener rotate pieces
+    piece.addEventListener( "click",() => {
+            rotatePiece(piece);
         }
     );
 
-    piece.addEventListener(
-        "dblclick",
-        () => {
+    piece.addEventListener( "keydown", (event) => {
+
+        if (event.code === "Space") {
+
+            event.preventDefault();
 
             rotatePiece(piece);
 
-        }
-    );
-
-    piece.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (event.code === "Space") {
-
-                event.preventDefault();
-
-                rotatePiece(piece);
-
             }
-
         }
     );
 
@@ -313,42 +482,6 @@ function rotatePiece(piece) {
 
 }
 
-function swapPieces(pieceA, pieceB) {
-
-    const tempPosition =
-        pieceA.dataset.currentPosition;
-
-    pieceA.dataset.currentPosition =
-        pieceB.dataset.currentPosition;
-
-    pieceB.dataset.currentPosition =
-        tempPosition;
-
-    const pieces =
-        Array.from(
-            puzzleBoard.children
-        );
-
-    const indexA =
-        pieces.indexOf(pieceA);
-
-    const indexB =
-        pieces.indexOf(pieceB);
-
-    pieces[indexA] = pieceB;
-    pieces[indexB] = pieceA;
-
-    puzzleBoard.innerHTML = "";
-
-    pieces.forEach(piece => {
-
-        puzzleBoard.appendChild(piece);
-
-    });
-
-    checkWin();
-
-}
 
 function shuffleArray(array) {
 
@@ -370,54 +503,85 @@ function shuffleArray(array) {
 
 }
 
-function checkWin() {
 
-    const pieces =
-        document.querySelectorAll(
-            ".puzzle-piece"
-        );
+function checkWin() {
 
     let solved = true;
 
-    pieces.forEach(piece => {
+    boardState.forEach(
+        (piece, index) => {
 
-        const correct =
-            Number(
-                piece.dataset.correctPosition
-            );
+            const correctPosition =
+                Number(
+                    piece.dataset.correctPosition
+                );
 
-        const current =
-            Number(
-                piece.dataset.currentPosition
-            );
+            const rotation =
+                Number(
+                    piece.dataset.rotation
+                );
 
-        const rotation =
-            Number(
-                piece.dataset.rotation
-            );
+            if (
+                correctPosition !== index ||
+                rotation !== 0
+            ) {
+
+                solved = false;
+
+            }
+        }
+    );
+
+    if (solved) 
+    {
+        victoryMessage.classList.remove("hidden");
+        puzzleBoard.style.filter = "none";
+        setTimeout(() => {
+
+            puzzleBoard.classList.add("completed-board");
+            showCompletePainting();
+
+        let unlockedPaintings =
+        JSON.parse(
+            localStorage.getItem(
+                "museumCollection"
+            )
+        ) || [];
 
         if (
-            correct !== current ||
-            rotation !== 0
+            !unlockedPaintings.includes(
+                selectedPainting
+            )
         ) {
 
-            solved = false;
+            unlockedPaintings.push(
+                selectedPainting
+            );
 
+            localStorage.setItem(
+                "museumCollection",
+                JSON.stringify(
+                    unlockedPaintings
+                )
+            );
         }
 
-    });
+    }, 1000);}}
 
-    if (solved) {
+function showCompletePainting() {
 
-        victoryMessage.classList.remove("hidden");
 
-        puzzleBoard.classList.add(
-            "puzzle-complete"
-        );
+    puzzleBoard.innerHTML = "";
 
-        statusText.textContent =
-            "Masterpiece Restored!";
+    puzzleBoard.style.gridTemplateColumns = "1fr";
+    puzzleBoard.style.gridTemplateRows = "1fr";
 
-    }
+    const image =
+        document.createElement("img");
+
+    image.src = selectedPainting;
+    image.classList.add("completed-image");
+
+    puzzleBoard.appendChild(image);
 
 }
