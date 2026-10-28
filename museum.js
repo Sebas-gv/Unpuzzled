@@ -1,59 +1,74 @@
 const museumData = [
     {
         title: "Mona Lisa",
-        image: "images/Mona_Lisa.png"
+        image: "images/Mona_Lisa.png",
+        artist: "Leonardo da Vinci",
+        year: "1503–1519"
     },
     {
         title: "The Scream",
-        image: "images/The_Scream.png"
+        image: "images/The_Scream.png",
+        artist: "Edvard Munch",
+        year: "1893"
     },
     {
         title: "American Gothic",
-        image: "images/American_Gothic.png"
+        image: "images/American_Gothic.png",
+        artist: "Grant Wood",
+        year: "1930"
     },
     {
         title: "The Great Wave",
-        image: "images/Great_Wave.png"
+        image: "images/Great_Wave.png",
+        artist: "Katsushika Hokusai",
+        year: "c. 1831"
     },
     {
         title: "The Kiss",
-        image: "images/The_Kiss.png"
+        image: "images/The_Kiss.png",
+        artist: "Gustav Klimt",
+        year: "1907–1908"
     },
     {
         title: "Madonna",
-        image: "images/Madonna.png"
+        image: "images/Madonna.png",
+        artist: "To be confirmed",
+        year: "To be confirmed"
     },
     {
         title: "The Milkmaid",
-        image: "images/The_Milkmaid.png"
+        image: "images/The_Milkmaid.png",
+        artist: "Johannes Vermeer",
+        year: "c. 1658–1660"
     },
     {
         title: "Self Portrait",
-        image: "images/Self_Portrait.png"
+        image: "images/Self_Portrait.png",
+        artist: "Vincent van Gogh",
+        year: "1889"
     },
     {
         title: "Sunflowers",
-        image: "images/Sunflowers.png"
+        image: "images/Sunflowers.png",
+        artist: "Vincent van Gogh",
+        year: "1888"
     },
     {
         title: "Girl with a Pearl Earring",
-        image: "images/Girl_With_A_Pearl_Earring.png"
+        image: "images/Girl_With_A_Pearl_Earring.png",
+        artist: "Johannes Vermeer",
+        year: "c. 1665"
     }
 ];
 
 
 let unlockedPaintings =
     JSON.parse(
-        localStorage.getItem(
-            "museumCollection"
-)) || [];
+        localStorage.getItem("museumCollection")) || [];
 
 function updateMuseumCounter() {
 
-    const counter =
-        document.getElementById(
-            "museum-counter"
-        );
+    const counter = document.getElementById("museum-counter");
 
     counter.textContent =
         `${unlockedPaintings.length} / ${museumData.length}`;
@@ -61,10 +76,7 @@ function updateMuseumCounter() {
 
 function renderMuseum() {
 
-    const museumGrid =
-        document.getElementById(
-            "museum-grid"
-        );
+    const museumGrid = document.getElementById("museum-grid");
 
     if (!museumGrid) return;
 
@@ -103,6 +115,13 @@ function renderMuseum() {
                     ? "✅ Restored"
                     : "🔒 Locked"}
             </p>
+            <p class="painting-artist">
+                ${painting.artist}
+            </p>
+
+            <small class="painting-year">
+                ${painting.year}
+            </small>
         `;
 
         museumGrid.appendChild(card);

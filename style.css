@@ -844,6 +844,20 @@ footer a:hover {
 .museum-preview a {
     margin-top: 6vh;
 }
+
+.painting-credit {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+}
+.painting-year {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
 @media (max-width: 768px) {
 
     #game-area {
