@@ -56,7 +56,7 @@ function previousImage() {
 }
 
 
-
+showImage();
 //Creating an interval to continue to next image automatically
 let carouselInterval = setInterval(nextImage, 4000);
 
