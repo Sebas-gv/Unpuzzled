@@ -204,30 +204,6 @@ footer {
     text-decoration: underline;
 }
 
-/* ---------- MOBILE ---------- */
-
-@media (max-width: 768px) {
-
-    nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-}
-
 /* ----------------- CSS GAME - MUSEUM ------------------*/
 /* ---------- PAGE BANNER ---------- */
 
@@ -438,40 +414,17 @@ footer {
 @keyframes reveal {
 
     from {
-
         opacity: 0;
         transform: scale(0.9);
-
     }
 
     to {
-
         opacity: 1;
         transform: scale(1);
-
     }
 }
 
 
-@media (max-width: 768px) {
-
-    #game-area {
-        margin-top: 0%;
-        align-items: center;
-        justify-content: center;
-        grid-template-columns: 1fr;
-        grid-template-rows: 250px auto;
-        gap: 1rem;
-    }
-
-    .game-settings {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 30px auto;
-
-    }
-
-}
 
 /* ---------- MUSEUM ---------- */
 .museum-progress {
@@ -614,14 +567,7 @@ footer {
     display: none;
 }
 
-@media (max-width: 768px) {
 
-    #puzzle-board {
-
-        width: 90vw;
-        height: 90vw;
-    }
-}
 
 .puzzle-piece {
 
@@ -648,4 +594,301 @@ footer {
 .puzzle-complete {
 
     animation: celebrate 1s ease;
+}
+
+/* =========================================
+   VISUAL IMPROVEMENTS
+   ========================================= */
+
+/* Add more spacing between major sections */
+
+.about,
+.museum-preview,
+.museum-progress,
+.museum-gallery,
+.carousel-section {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/* Give section titles stronger visual hierarchy */
+
+.about h2,
+.about h3,
+.museum-preview h2,
+.page-banner h1,
+.carousel-section h2,
+.puzzle-section h2,
+.museum-gallery h2,
+.museum-progress h2 {
+
+    margin-bottom: 1rem;
+
+    color: var(--bgBlack);
+
+    font-weight: bold;
+}
+
+/* Make hero section feel more polished */
+
+.hero-content {
+
+    max-width: 800px;
+
+    padding: 0 2rem;
+}
+
+.hero h1 {
+
+    font-size: 4rem;
+
+    letter-spacing: 1px;
+}
+
+.hero h2 {
+
+    color: var(--yellow);
+
+    margin-bottom: 1.5rem;
+}
+
+/* Small shadow for important buttons */
+
+.cta-button,
+.secondary-button,
+.carousel-btn,
+.carousel-controls button,
+#puzzle-form button {
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.15);
+
+    transition:
+        background-color .3s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+/* Add a subtle lift effect */
+
+.cta-button:hover,
+.secondary-button:hover,
+.carousel-btn:hover,
+.carousel-controls button:hover,
+#puzzle-form button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(0,0,0,.2);
+}
+
+/* Give the settings panel a card look */
+
+.game-settings {
+
+    background-color: white;
+
+    padding: 2rem;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08);
+}
+
+/* Better looking inputs */
+
+#puzzle-form input {
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 1rem;
+}
+
+#puzzle-form input:focus {
+
+    outline: none;
+
+    border-color: var(--yellow);
+
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,.2);
+}
+
+/* Improve puzzle status appearance */
+
+#game-status {
+
+    background: white;
+
+    padding: 1rem;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.08);
+
+    margin-bottom: 2rem;
+}
+
+/* Improve museum cards */
+
+.museum-card {
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.12);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.museum-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+}
+
+/* Add more emphasis to progress card */
+
+.progress-card {
+
+    border-left: 5px solid var(--yellow);
+}
+
+/* Better carousel image presentation */
+
+.carousel-image-container img {
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Improve footer spacing */
+
+footer {
+    padding: 2rem;
+
+    line-height: 1.8;
+}
+
+/* Footer weather block */
+
+#weatherInfo {
+
+    margin-bottom: 1rem;
+}
+
+#weatherInfo p {
+
+    margin: .2rem 0;
+}
+
+/* Footer links */
+
+footer a {
+
+    color: var(--yellow);
+
+    text-decoration: none;
+
+    margin: 0 .75rem;
+
+    transition: color .3s ease;
+}
+
+footer a:hover {
+
+    color: white;
+}
+
+#weatherInfo {
+    padding-left: 25%;
+    padding-right: 25%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Give sections a consistent width */
+
+.about,
+.museum-preview,
+.museum-progress,
+.museum-gallery,
+.carousel-section {
+
+    max-width: 1200px;
+}
+
+/* Smooth image hover effect */
+
+.museum-card img {
+
+    transition:
+        transform .4s ease;
+}
+
+.museum-card:hover img {
+
+    transform: scale(1.03);
+}
+
+.museum-preview a {
+    margin-top: 6vh;
+}
+@media (max-width: 768px) {
+
+    #game-area {
+        margin-top: 0%;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 250px auto;
+        gap: 1rem;
+    }
+
+    .game-settings {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px auto;
+
+    }
+
+}
+@media (max-width: 768px) {
+
+    #puzzle-board {
+
+        width: 90vw;
+        height: 90vw;
+    }
+}
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
 }

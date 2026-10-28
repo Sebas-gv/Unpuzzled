@@ -1,4 +1,3 @@
-console.log("Hello");
 
 //Declaring images
 const paintings = [
@@ -17,23 +16,14 @@ const paintings = [
 //CARUSEL
 //Getting elements needed for the carousel
 const carouselImage = document.getElementById("carouselImage");
-    console.log(carouselImage);
 
-const prevBtn =
-    document.getElementById("prevBtn");
-    console.log(prevBtn);
+const prevBtn = document.getElementById("prevBtn");
 
-const nextBtn =
-    document.getElementById("nextBtn");
-    console.log(nextBtn);
+const nextBtn = document.getElementById("nextBtn");
 
-const pauseBtn =
-    document.getElementById("pauseBtn");
-    console.log(pauseBtn);
+const pauseBtn = document.getElementById("pauseBtn");
 
-const resumeBtn =
-    document.getElementById("resumeBtn");
-    console.log(resumeBtn);
+const resumeBtn = document.getElementById("resumeBtn");
 
 let currentImageIndex = 0; //index of the displayed image
 
@@ -98,6 +88,8 @@ resumeBtn.addEventListener("click", () => {
         setInterval(nextImage, 4000);
 
 });
+
+
 
 // ------------------ Game logic ----------------- //
 const puzzleForm = document.getElementById("puzzle-form");
@@ -218,28 +210,21 @@ function applyVisualEffects() {
 
     let filters = [];
 
+    // Add blur if selected
     if (blurCheckbox.checked) {
-
         filters.push("blur(3px)");
-
     }
 
+    // Add greyscale if selected
     if (greyscaleCheckbox.checked) {
-
         filters.push("grayscale(100%)");
-
     }
 
-    const filterString =
-        filters.join(" ");
+    const filterString = filters.join(" ");
 
-    document
-        .querySelectorAll(".puzzle-piece")
-        .forEach(piece => {
-
-            piece.style.filter = "none";
-
-        });
+    document.querySelectorAll(".puzzle-piece").forEach(piece => {
+        piece.style.filter = filterString;
+    });
 }
 
 function renderBoard() {
@@ -347,7 +332,6 @@ function createHorizontalSwapButton( index) {
                 index,
                 index + 1
             );
-
         }
     );
 
@@ -482,7 +466,6 @@ function rotatePiece(piece) {
 
 }
 
-
 function shuffleArray(array) {
 
     for (
@@ -502,7 +485,6 @@ function shuffleArray(array) {
     }
 
 }
-
 
 function checkWin() {
 
