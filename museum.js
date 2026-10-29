@@ -55,7 +55,7 @@ const museumData = [
     },
     {
         title: "Girl with a Pearl Earring",
-        image: "images/Girl_With_a_Pearl_Earring.png",
+        image: "images/Girl_with_a_Pearl_Earring.png",
         artist: "Johannes Vermeer",
         year: "c. 1665"
     }
