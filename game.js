@@ -10,7 +10,7 @@ const paintings = [
     "images/The_Milkmaid.png",
     "images/Self_Portrait.png",
     "images/Sunflowers.png",
-    "images/Girl_With_a_Pearl_Earring.png"
+    "images/Girl_with_a_Pearl_Earring.png"
 ];
 
 //CARUSEL
